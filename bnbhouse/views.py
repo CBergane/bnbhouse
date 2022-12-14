@@ -17,6 +17,14 @@ class BookingList(ListView):
     model = Bookings
 
 
+def description_list(request):
+    obj = House.objects.get(house.description)
+    context = {
+        'describtion': obj.description
+    }
+    return render(request, 'house_detail_view.html', context)
+
+
 class HouseDetailView(View):
     def get(self, request, *args, **kwargs):
         category = self.kwargs.get('category', None)
@@ -27,7 +35,6 @@ class HouseDetailView(View):
             house_category = dict(house.HOUSE_CATAGORIES).get(house.category, None)
             context = {
                 'house_category': house_category,
-                # 'description': description,
             }
             return render(request, 'house_detail_view.html', context)
         else:
