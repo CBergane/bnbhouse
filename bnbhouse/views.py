@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic import TemplateView, ListView, FormView, View
+from django.views import generic
 from .models import House, Bookings
 from .booking_form import Availabilety
 from bnbhouse.bookingfunction.available import check_available
@@ -18,9 +19,9 @@ class BookingList(ListView):
 
 
 def description_list(request):
-    obj = House.objects.get(house.description)
+    obj = House.objects.all()
     context = {
-        'describtion': obj.description
+        'description': obj.description
     }
     return render(request, 'house_detail_view.html', context)
 
@@ -29,7 +30,6 @@ class HouseDetailView(View):
     def get(self, request, *args, **kwargs):
         category = self.kwargs.get('category', None)
         house_list = House.objects.filter(category=category)
-
         if len(house_list) > 0:
             house = house_list[0]
             house_category = dict(house.HOUSE_CATAGORIES).get(house.category, None)

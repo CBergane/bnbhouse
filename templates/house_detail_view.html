@@ -5,22 +5,39 @@
 
     <div class="container-md.">
         <div class="row aling-items-center">
-            <div class="col">
+            <div class="col-md-4">
                 <h2>{{ house_category }}</h2>
                 
-                <p>{{ description }} </p>
+                <p>{{ description }} Lorem ipsum dolor sit amet consectetur 
+                    adipisicing elit. Id asperiores assumenda similique exercitationem 
+                    possimus quod, molestias non illo perspiciatis quasi! Odit modi, 
+                    eos doloremque consequatur exercitationem perferendis eius unde explicabo?</p>
                 
                 
             </div>
-            <div class="col">
+            <div class="col-md-4">
+                
                 <form action="" method="POST">
-                    <button class="btn">Book!</button>
+                    {% csrf_token %}
 
+                    <!-- Input Div -->
+                    <div class="form-group">
+                        <label for="id_check_in">Check In : </label>
+                        <input class="form-control" type="datetime-local" id="id_check_in" name="check_in">
+                    </div>
+    
+                    <!-- Input Div -->
+                    <div class="form-group">
+                        <label for="id_check_out">Check Out : </label>
+                        <input class="form-control" type="datetime-local" id="id_check_out" name="check_out">
+                    </div>
+    
+                    <!-- Input Div -->
+                    <div class="input-div">
+                        <button class="btn btn-primary" type="submit">Book the Room</button>
+                    </div>
+    
                 </form>
-            </div>
-            <div class="col">
-
-
             </div>
         </div>
 
