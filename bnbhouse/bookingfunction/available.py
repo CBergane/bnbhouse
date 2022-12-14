@@ -1,5 +1,5 @@
 import datetime
-from bnbhouse.models import house, Bookings
+from bnbhouse.models import House, Bookings
 
 # Too check if the room in available
 

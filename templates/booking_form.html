@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block container %}
+    <article>This is a try!
+        <form action="" method="POST">
+            {{form.as_p}}
+            {% csrf_token %}
+            <button type="submit">Book</button>
+        </form>
+        
+    </article>
+
+{% endblock %}

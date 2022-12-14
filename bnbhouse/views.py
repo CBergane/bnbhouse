@@ -1,6 +1,8 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView, ListView
-from .models import house, Bookings
+from django.shortcuts import render, HttpResponse
+from django.views.generic import TemplateView, ListView, FormView, View
+from .models import House, Bookings
+from .booking_form import Availabilety
+from bnbhouse.bookingfunction.available import check_available
 
 
 class IndexView(TemplateView):
@@ -8,8 +10,71 @@ class IndexView(TemplateView):
 
 
 class HouseList(ListView):
-    model = house
+    model = House
 
 
 class BookingList(ListView):
     model = Bookings
+
+
+class HouseDetailView(View):
+    def get(self, request, *args, **kwargs):
+        category = self.kwargs.get('category', None)
+        house_list = House.objects.filter(category=category)
+
+        if len(house_list) > 0:
+            house = house_list[0]
+            house_category = dict(house.HOUSE_CATAGORIES).get(house.category, None)
+            context = {
+                'house_category': house_category,
+                # 'description': description,
+            }
+            return render(request, 'house_detail_view.html', context)
+        else:
+            return HttpResponse('Category dose not exist')
+
+    def post(self, request, *args, **kwargs):
+        house_list = house.objects.filter(category=category)
+        availabile_house_list = []
+        for house in house_list:
+            if check_available(house, data['check_in'], data['check_out']):
+                availabile_house_list.append(house)
+
+        if len(availabile_house_list) > 0:
+            house = availabile_house_list[0]
+            booking = Bookings.objects.create(
+                guest=self.request.user,
+                house=house,
+                check_in=data['chck_in'],
+                check_out=data['check_out']
+            )
+            booking.save()
+            return HttpResponse(booking)
+        else:
+            return HttpResponse('All of this category is booked')
+
+
+class BookingView(FormView):
+    form_class = Availabilety
+    template_name = 'booking_form.html'
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        house_list = House.objects.filter(category=data['house_category'])
+        availabile_house_list = []
+        for house in house_list:
+            if check_available(house, data['check_in'], data['check_out']):
+                availabile_house_list.append(house)
+
+        if len(availabile_house_list) > 0:
+            house = availabile_house_list[0]
+            booking = Bookings.objects.create(
+                guest=self.request.user,
+                house=house,
+                check_in=data['chck_in'],
+                check_out=data['check_out']
+            )
+            booking.save()
+            return HttpResponse(booking)
+        else:
+            return HttpResponse('All of this category is booked')
