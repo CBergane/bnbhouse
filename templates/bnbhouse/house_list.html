@@ -1,0 +1,10 @@
+    {% extends "base.html" %}
+
+    {% block container %}
+        <article>This is a try!
+            {% for house in house_list %}
+            <h2>{{house}}</h2>
+            {% endfor %}
+        </article>
+    
+    {% endblock %}

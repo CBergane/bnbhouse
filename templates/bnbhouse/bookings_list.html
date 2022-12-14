@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block container %}
+    <article>This is a try!
+        {% for booking in bookings_list %}
+        <h2>{{booking}}</h2>
+        {% endfor %}
+    </article>
+
+{% endblock %}
