@@ -1,1 +1,1 @@
-web: gunicorn airbnb.wsgi.
+web: gunicorn airbnb.wsgi
