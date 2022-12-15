@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
 {% block container %}
-    <article>This is a try!</article>
-
     <div class="container-md.">
         <div class="row aling-items-center">
             <div class="col-md-4">
@@ -17,19 +15,19 @@
             </div>
             <div class="col-md-4">
                 
-                <form action="" method="POST">
+                <form id="booking-form" action="" method="POST">
                     {% csrf_token %}
 
                     <!-- Input Div -->
                     <div class="form-group">
                         <label for="id_check_in">Check In : </label>
-                        <input class="form-control" type="datetime-local" id="id_check_in" name="check_in">
+                        <input class="form-control" type="datetime-local" id="id_check_in" name="check_in" required>
                     </div>
     
                     <!-- Input Div -->
                     <div class="form-group">
                         <label for="id_check_out">Check Out : </label>
-                        <input class="form-control" type="datetime-local" id="id_check_out" name="check_out">
+                        <input class="form-control" type="datetime-local" id="id_check_out" name="check_out" required>
                     </div>
     
                     <!-- Input Div -->

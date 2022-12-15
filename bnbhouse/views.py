@@ -1,16 +1,18 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic import TemplateView, ListView, FormView, View
 from django.views import generic
+from django.urls import reverse
 from .models import House, Bookings
 from .booking_form import Availabilety
-from bnbhouse.bookingfunction.available import check_available
+from bnbhouse.bookingfunction.available import check_availabile
 
 
 class IndexView(TemplateView):
     template_name = "index.html"
 
 
-class HouseList(ListView):
+class HouseListView(TemplateView, ListView):
+    template_name = "house_list_view.html"
     model = House
 
 
@@ -29,22 +31,30 @@ def description_list(request):
 class HouseDetailView(View):
     def get(self, request, *args, **kwargs):
         category = self.kwargs.get('category', None)
+        form = Availabilety()
         house_list = House.objects.filter(category=category)
         if len(house_list) > 0:
             house = house_list[0]
             house_category = dict(house.HOUSE_CATAGORIES).get(house.category, None)
             context = {
                 'house_category': house_category,
+                'form': form,
             }
             return render(request, 'house_detail_view.html', context)
         else:
             return HttpResponse('Category dose not exist')
 
     def post(self, request, *args, **kwargs):
-        house_list = house.objects.filter(category=category)
+        category = self.kwargs.get('category', None)
+        house_list = House.objects.filter(category=category)
+        form = Availabilety(request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+
         availabile_house_list = []
         for house in house_list:
-            if check_available(house, data['check_in'], data['check_out']):
+            if check_availabile(house, data['check_in'], data['check_out']):
                 availabile_house_list.append(house)
 
         if len(availabile_house_list) > 0:
@@ -52,7 +62,7 @@ class HouseDetailView(View):
             booking = Bookings.objects.create(
                 guest=self.request.user,
                 house=house,
-                check_in=data['chck_in'],
+                check_in=data['check_in'],
                 check_out=data['check_out']
             )
             booking.save()
