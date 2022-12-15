@@ -7,8 +7,9 @@ app_name = 'bnbhouse'
 
 urlpatterns = [
     path('house_list_view/', HouseListView, name='HouseListView'),
+    # path('house_detail_view/', HouseDetailView.as_view(), name='HouseDetailView'),
     path('home/', IndexView.as_view(), name='IndexView'),
     path('booking_list/', BookingList.as_view(), name='BookingList'),
     path('bookings/', BookingView.as_view(), name='Bookingview'),
-    path('house/<category>', HouseDetailView.as_view(), name='HouseDetailview'),
+    path('house/<category>', HouseDetailView.as_view(), name='HouseDetailView'),
 ]

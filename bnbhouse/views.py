@@ -18,12 +18,15 @@ def HouseListView(request):
 
     house_values = house_categories.values()
     print('categories=', house_values)
-    houyse_list = []
+    house_list = []
     for house_category in house_categories:
         house = house_categories.get(house_category)
-        print(house)
-
-    context = {}
+        house_url = reverse('bnbhouse:HouseDetailView', kwargs={
+            'category': house_category})
+        house_list.append((house, house_url))
+    context = {
+        "house_list": house_list,
+    }
     return render(request, 'house_list_view.html', context)
 
 
