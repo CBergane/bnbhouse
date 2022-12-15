@@ -11,9 +11,20 @@ class IndexView(TemplateView):
     template_name = "index.html"
 
 
-class HouseListView(TemplateView, ListView):
-    template_name = "house_list_view.html"
-    model = House
+def HouseListView(request):
+    house = House.objects.all()[0]
+    house_categories = dict(house.HOUSE_CATAGORIES)
+    print('categories=', house_categories)
+
+    house_values = house_categories.values()
+    print('categories=', house_values)
+    houyse_list = []
+    for house_category in house_categories:
+        house = house_categories.get(house_category)
+        print(house)
+
+    context = {}
+    return render(request, 'house_list_view.html', context)
 
 
 class BookingList(ListView):
