@@ -1,5 +1,5 @@
 from . import views
-from .views import HouseListView, BookingList, BookingView, HouseDetailView, IndexView
+from .views import HouseListView, BookingList, BookingView, HouseDetailView, IndexView, description_list
 from django.urls import path
 
 app_name = 'bnbhouse'

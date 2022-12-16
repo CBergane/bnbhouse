@@ -22,7 +22,7 @@ def HouseListView(request):
             'category': house_category})
         house_list.append((house, house_url))
     context = {
-        "house_list": house_list,
+        'house_list': house_list,
     }
     return render(request, 'house_list_view.html', context)
 
@@ -39,26 +39,27 @@ class BookingList(ListView):
             return booking_list
 
 
-def description_list(request):
-    obj = House.objects.all()
-    context = {
-        'description': obj.description
-    }
-    return render(request, 'house_detail_view.html', context)
+def description_list(request, slug):
+    description = House.objects.get(slug=slug)
+    return render(request, 'house_detail_view.html', {
+        'house': house})
+    print(description_list)
 
 
 class HouseDetailView(View):
     def get(self, request, *args, **kwargs):
-        category = self.kwargs.get('category', None)
+        category = self.kwargs.get('category',  None)
         form = Availabilety()
         house_list = House.objects.filter(category=category)
         if len(house_list) > 0:
             house = house_list[0]
             house_category = dict(house.HOUSE_CATAGORIES).get(
                 house.category, None)
+            obj = House.objects.get(category=category)
             context = {
                 'house_category': house_category,
                 'form': form,
+                'object': obj,
             }
             return render(request, 'house_detail_view.html', context)
         else:
