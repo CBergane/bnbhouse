@@ -30,6 +30,14 @@ def HouseListView(request):
 class BookingList(ListView):
     model = Bookings
 
+    def get_queryset(self, *args, **kwargs):
+        if self.request.user.is_staff:
+            booking_list = Bookings.objects.all()
+            return booking_list
+        else:
+            booking_list = Bookings.objects.filter(user=self.request.user)
+            return booking_list
+
 
 def description_list(request):
     obj = House.objects.all()
@@ -46,7 +54,8 @@ class HouseDetailView(View):
         house_list = House.objects.filter(category=category)
         if len(house_list) > 0:
             house = house_list[0]
-            house_category = dict(house.HOUSE_CATAGORIES).get(house.category, None)
+            house_category = dict(house.HOUSE_CATAGORIES).get(
+                house.category, None)
             context = {
                 'house_category': house_category,
                 'form': form,
@@ -71,7 +80,7 @@ class HouseDetailView(View):
         if len(availabile_house_list) > 0:
             house = availabile_house_list[0]
             booking = Bookings.objects.create(
-                guest=self.request.user,
+                user=self.request.user,
                 house=house,
                 check_in=data['check_in'],
                 check_out=data['check_out']
@@ -97,7 +106,7 @@ class BookingView(FormView):
         if len(availabile_house_list) > 0:
             house = availabile_house_list[0]
             booking = Bookings.objects.create(
-                guest=self.request.user,
+                user=self.request.user,
                 house=house,
                 check_in=data['chck_in'],
                 check_out=data['check_out']

@@ -21,10 +21,10 @@ class House(models.Model):
 
 
 class Bookings(models.Model):
-    guest = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     house = models.ForeignKey(House, on_delete=models.CASCADE)
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
 
     def __str__(self):
-        return f'{self.guest} has booked {self.house} from {self.check_in} untill {self.check_out}'
+        return f'{self.user} has booked {self.house} from {self.check_in} untill {self.check_out}'
