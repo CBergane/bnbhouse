@@ -14,10 +14,7 @@ class IndexView(TemplateView):
 def HouseListView(request):
     house = House.objects.all()[0]
     house_categories = dict(house.HOUSE_CATAGORIES)
-    print('categories=', house_categories)
-
     house_values = house_categories.values()
-    print('categories=', house_values)
     house_list = []
     for house_category in house_categories:
         house = house_categories.get(house_category)
