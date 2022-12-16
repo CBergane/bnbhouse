@@ -19,18 +19,21 @@ class House(models.Model):
     slug = models.SlugField()
 
     def __str__(self):
-        return f'{self.number}. {self.category} with {self.beds} beds for {self.capacity} people'
+        return f'{self.number}. {self.category}'\
+            f' with {self.beds} beds for {self.capacity} people'
 
     class Meta:
         ordering: ('number')
 
 
 class Bookings(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     house = models.ForeignKey(House, on_delete=models.CASCADE)
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
     slug = models.SlugField()
 
     def __str__(self):
-        return f'{self.user} has booked {self.house} from {self.check_in} untill {self.check_out}'
+        return f'{self.user} has booked {self.house} '
+        f'from {self.check_in} untill {self.check_out}'
