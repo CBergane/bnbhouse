@@ -39,11 +39,11 @@ class BookingList(ListView):
             return booking_list
 
 
-def description_list(request, slug):
-    description = House.objects.get(slug=slug)
-    return render(request, 'house_detail_view.html', {
-        'house': house})
-    print(description_list)
+# def description_list(request, slug):
+#     description = House.objects.get(slug=slug)
+#     return render(request, 'house_detail_view.html', {
+#         'house': house})
+#     print(description_list)
 
 
 class HouseDetailView(View):

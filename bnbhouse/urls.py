@@ -1,6 +1,6 @@
 from . import views
 from .views import HouseListView, BookingList, BookingView, HouseDetailView, \
-    IndexView, description_list
+    IndexView
 from django.urls import path
 
 app_name = 'bnbhouse'
