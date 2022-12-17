@@ -10,12 +10,12 @@
           <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">{{booking.house.category}} HOUSE</h5>
+                  <h5 class="card-title">{{booking.get_house_category}} HOUSE</h5>
                   <p class="card-text">From: {{booking.check_in}}</p>
                   <p class="card-text">To: {{booking.check_out}}</p>
                   <p class="card-text">Beds: {{booking.house.beds}}</p>
                   <p class="card-text">Capacity: {{booking.house.capacity}}</p>
-                  <a href="{{booking.cancel_booking}}" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"> Cancel booking</i></a>
+                  <a href="{{booking.get_cancel_booking_url}}" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"> Cancel booking</i></a>
                 </div>
               </div>
           </div>

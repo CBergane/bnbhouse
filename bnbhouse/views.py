@@ -1,7 +1,8 @@
 from django.shortcuts import render, HttpResponse
-from django.views.generic import TemplateView, ListView, FormView, View
+from django.views.generic import TemplateView, ListView, FormView, \
+    View, DeleteView
 from django.views import generic
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from .models import House, Bookings
 from .booking_form import Availabilety
 from bnbhouse.bookingfunction.available import check_availabile
@@ -29,6 +30,7 @@ def HouseListView(request):
 
 class BookingList(ListView):
     model = Bookings
+    template_name = 'bookings_list.html'
 
     def get_queryset(self, *args, **kwargs):
         if self.request.user.is_staff:
@@ -37,13 +39,6 @@ class BookingList(ListView):
         else:
             booking_list = Bookings.objects.filter(user=self.request.user)
             return booking_list
-
-
-# def description_list(request, slug):
-#     description = House.objects.get(slug=slug)
-#     return render(request, 'house_detail_view.html', {
-#         'house': house})
-#     print(description_list)
 
 
 class HouseDetailView(View):
@@ -92,27 +87,7 @@ class HouseDetailView(View):
             return HttpResponse('All of this category is booked')
 
 
-class BookingView(FormView):
-    form_class = Availabilety
-    template_name = 'booking_form.html'
-
-    def form_valid(self, form):
-        data = form.cleaned_data
-        house_list = House.objects.filter(category=data['house_category'])
-        availabile_house_list = []
-        for house in house_list:
-            if check_available(house, data['check_in'], data['check_out']):
-                availabile_house_list.append(house)
-
-        if len(availabile_house_list) > 0:
-            house = availabile_house_list[0]
-            booking = Bookings.objects.create(
-                user=self.request.user,
-                house=house,
-                check_in=data['chck_in'],
-                check_out=data['check_out']
-            )
-            booking.save()
-            return HttpResponse(booking)
-        else:
-            return HttpResponse('All of this category is booked')
+class CancelBooking(DeleteView):
+    model = Bookings
+    template_name = 'booking_cancel_view.html'
+    success_url = reverse_lazy('bnbhouse:BookingList')

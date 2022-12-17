@@ -37,3 +37,11 @@ class Bookings(models.Model):
     def __str__(self):
         return f'{self.user} has booked {self.house} '
         f'from {self.check_in} untill {self.check_out}'
+
+    def get_house_category(self):
+        house_categories = dict(self.house.HOUSE_CATAGORIES)
+        house_category = house_categories.get(self.house.category)
+        return house_category
+
+    def get_cancel_booking_url(self):
+        success_url = reverse('bnbhouse:BookingList')
