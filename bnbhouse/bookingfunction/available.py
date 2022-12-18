@@ -11,5 +11,5 @@ def check_availabile(house, check_in, check_out):
         if booking.check_in > check_out or booking.check_out < check_in:
             availabile.append(True)
         else:
-            available.append(False)
+            availabile.append(False)
     return all(availabile)

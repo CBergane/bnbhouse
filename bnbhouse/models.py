@@ -44,4 +44,4 @@ class Bookings(models.Model):
         return house_category
 
     def get_cancel_booking_url(self):
-        success_url = reverse('bnbhouse:BookingList')
+        model = Bookings

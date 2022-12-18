@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block container %}
+
+<div class="col-sm-6">
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{booking.get_house_category}} HOUSE</h5>
+
+          <a href="{{booking.get_cancel_booking_url}}" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"> Cancel Booking</i></a>
+        </div>
+      </div>
+  </div>
+
+{% endblock %}

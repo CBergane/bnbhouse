@@ -1,6 +1,6 @@
 from . import views
 from .views import HouseListView, BookingList, HouseDetailView, \
-    IndexView, CancelBooking
+    IndexView
 from django.urls import path
 
 app_name = 'bnbhouse'
@@ -19,7 +19,8 @@ urlpatterns = [
     path('house/<category>',
          HouseDetailView.as_view(),
          name='HouseDetailView'),
-    path('booking/cancel/<pk>',
-         CancelBooking.as_view(), 
-         name='cancelbooking')
+    path('cancel_booking/<bookings_id>',
+         views.cancel_booking,
+         name='cancel_booking'),
+    path('update_booking/<bookings_id>', views.update_booking, name='update_booking'),
 ]

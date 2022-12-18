@@ -1,6 +1,6 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic import TemplateView, ListView, FormView, \
-    View, DeleteView
+    View
 from django.views import generic
 from django.urls import reverse, reverse_lazy
 from .models import House, Bookings
@@ -39,6 +39,27 @@ class BookingList(ListView):
         else:
             booking_list = Bookings.objects.filter(user=self.request.user)
             return booking_list
+
+# Update a booking
+
+
+def update_booking(request, bookings_id):
+    booking = Bookings.objects.get(pk=bookings_id)
+    form = Availabilety(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('BookingList')
+
+    return render(request, 'booking_update.html', {'booking': booking, 'form': form})
+
+
+# Cancel a booking
+
+
+def cancel_booking(request, bookings_id):
+    booking = Bookings.objects.get(pk=bookings_id)
+    booking.delete()
+    return redirect('booking_list')
 
 
 class HouseDetailView(View):
@@ -85,9 +106,3 @@ class HouseDetailView(View):
             return HttpResponse(booking)
         else:
             return HttpResponse('All of this category is booked')
-
-
-class CancelBooking(DeleteView):
-    model = Bookings
-    template_name = 'booking_cancel_view.html'
-    success_url = reverse_lazy('bnbhouse:BookingList')
