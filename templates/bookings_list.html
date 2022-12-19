@@ -2,8 +2,6 @@
 
 {% block container %}
     <div class="container px-4 text-center">
-    
-
         <div class="row gx-5 row-cols-1 row-cols-sm-2 row-cols-md-4">
             <h2>Welcome {{user}}, here is your bookings.</h2>
             {% for booking in bookings_list  %}
@@ -15,8 +13,7 @@
                   <p class="card-text">To: {{booking.check_out}}</p>
                   <p class="card-text">Beds: {{booking.house.beds}}</p>
                   <p class="card-text">Capacity: {{booking.house.capacity}}</p>
-                  <a href="{% url 'bnbhouse:cancel_booking' %}" class="btn btn-outline-danger btn-sm" ></a>
-                  <!-- <a href="{{booking.get_cancel_booking_url}}" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"> Cancel booking</i></a> -->
+                  <a href="{{booking.get_cancel_booking_url}}" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"> Cancel booking</i></a>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Launch demo modal
                   </button>

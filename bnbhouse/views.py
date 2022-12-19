@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic import TemplateView, ListView, FormView, \
-    View
+    View, DeleteView
 from django.views import generic
 from django.urls import reverse, reverse_lazy
 from .models import House, Bookings
@@ -104,5 +104,12 @@ class HouseDetailView(View):
             )
             booking.save()
             return HttpResponse(booking)
+            success_url = reverse_lazy('bnbhouse:BookingList')
         else:
             return HttpResponse('All of this category is booked')
+
+
+class CancelBooking(DeleteView):
+    model = Bookings
+    template_name = 'booking_cancel.html'
+    success_url = reverse_lazy('bnbhouse:BookingList')

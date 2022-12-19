@@ -1,7 +1,6 @@
 from django.db import models
-from django.urls import path
+from django.urls import path, reverse_lazy
 from django.conf import settings
-from django.shortcuts import reverse
 
 
 class House(models.Model):
@@ -44,4 +43,4 @@ class Bookings(models.Model):
         return house_category
 
     def get_cancel_booking_url(self):
-        model = Bookings
+        return reverse_lazy('bnbhouse:CancelBooking', args=[self.pk, ])

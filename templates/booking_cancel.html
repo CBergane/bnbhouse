@@ -1,15 +1,30 @@
 {% extends "base.html" %}
 
 {% block container %}
+<div class="container px-4">
+  <div class="row gx-5 row-cols-1 row-cols-sm-2 row-cols-md-4">
+    <div class="col-md-4">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
 
-<div class="col-sm-6">
-    <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{booking.get_house_category}} HOUSE</h5>
+            <form id="booking-form" action="" method="POST">
+                    {% csrf_token %}
 
-          <a href="{{booking.get_cancel_booking_url}}" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"> Cancel Booking</i></a>
+                    <h2 class="card-title">Are you sure you want to cancel your booking </h2>
+                    <p class="card-text">{{bookings.house.number}} </p>
+                    <p class="card-text">{{bookings.get_house_category}}</p> 
+                    <p class="card-text">{{bookings.check_in}} {{bookings.check_out}}?</p>
+                    <!-- Input Div -->
+                    <div class="input-div">
+                        <button class="btn btn-danger" type="submit">Cancel the Booking</button>
+                    </div>
+    
+                </form>
+            </div>
         </div>
-      </div>
-  </div>
+
+
+    </div>
 
 {% endblock %}
