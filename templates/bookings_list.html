@@ -20,7 +20,7 @@
                 </div>
               </div>
           </div>
-              {% endfor %}
+          {% endfor %}
         </div>
       </div>
 
@@ -33,17 +33,22 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <h5 class="card-title">{{booking.get_house_category}} HOUSE</h5>
-                  <p class="card-text">From: {{booking.get_house_check_in}}</p>
-                  <p class="card-text">To: {{booking.check_out}}</p>
-                  <p class="card-text">Beds: {{booking.house.beds}}</p>
-                  <p class="card-text">Capacity: {{booking.house.capacity}}</p>
-            </div>
-            <div class="modal-footer">
+              <form id="booking-form" action="" method="POST">
+                {% csrf_token %}
+
+                <h2 class="card-title">Are you sure you want to cancel your booking </h2>
+                <p class="card-text">{{bookings.house.number}} </p>
+                <p class="card-text">{{bookings.get_house_category}}</p> 
+                <p class="card-text">{{bookings.check_in}} {{bookings.check_out}}?</p>
+                <!-- Input Div -->
+                <div class="input-div">
+                    <button class="btn btn-danger" type="submit">Cancel the Booking</button>
+                </div>
+
+            </form>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-             
             </div>
           </div>
         </div>
-
+        
 {% endblock %}

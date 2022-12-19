@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import path, reverse_lazy
 from django.conf import settings
+from django.utils import timezone
 
 
 class House(models.Model):
@@ -29,7 +30,7 @@ class Bookings(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     house = models.ForeignKey(House, on_delete=models.CASCADE)
-    check_in = models.DateTimeField()
+    check_in = models.DateTimeField(default=timezone.now)
     check_out = models.DateTimeField()
     slug = models.SlugField()
 

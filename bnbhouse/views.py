@@ -13,6 +13,7 @@ class IndexView(TemplateView):
 
 
 def HouseListView(request):
+    obj = House.objects.all().values("description").distinct()
     house = House.objects.all()[0]
     house_categories = dict(house.HOUSE_CATAGORIES)
     house_values = house_categories.values()
@@ -20,10 +21,11 @@ def HouseListView(request):
     for house_category in house_categories:
         house = house_categories.get(house_category)
         house_url = reverse('bnbhouse:HouseDetailView', kwargs={
-            'category': house_category})
+            'category': house_category, })
         house_list.append((house, house_url))
     context = {
         'house_list': house_list,
+        'object': obj,
     }
     return render(request, 'house_list_view.html', context)
 
@@ -51,15 +53,6 @@ def update_booking(request, bookings_id):
         return redirect('BookingList')
 
     return render(request, 'booking_update.html', {'booking': booking, 'form': form})
-
-
-# Cancel a booking
-
-
-def cancel_booking(request, bookings_id):
-    booking = Bookings.objects.get(pk=bookings_id)
-    booking.delete()
-    return redirect('booking_list')
 
 
 class HouseDetailView(View):
@@ -103,10 +96,12 @@ class HouseDetailView(View):
                 check_out=data['check_out']
             )
             booking.save()
-            return HttpResponse(booking)
-            success_url = reverse_lazy('bnbhouse:BookingList')
+            return render(request, 'index.html')
+
         else:
             return HttpResponse('All of this category is booked')
+
+# Cancel booking
 
 
 class CancelBooking(DeleteView):
