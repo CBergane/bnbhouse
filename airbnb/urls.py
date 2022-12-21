@@ -24,5 +24,4 @@ urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('', include('bnbhouse.urls')),
     path('accounts/', include('allauth.urls')),
-    path('accounts/', include('allauth.urls')),
 ]
