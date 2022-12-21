@@ -30,7 +30,7 @@ class Bookings(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     house = models.ForeignKey(House, on_delete=models.CASCADE)
-    check_in = models.DateTimeField(default=timezone.now)
+    check_in = models.DateTimeField()
     check_out = models.DateTimeField()
     slug = models.SlugField()
 

@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
 {% block container %}
-    <div class="container px-4 text-center">
+  <h2 class="text-center">Welcome {{user}}, here are your bookings.</h2>
+    <div class="container px-4 text-center position-absolute top-50 start-50 translate-middle">
+      
         <div class="row gx-5 row-cols-1 row-cols-sm-2 row-cols-md-4">
-            <h2>Welcome {{user}}, here is your bookings.</h2>
-            {% for booking in bookings_list  %}
+          {% for booking in bookings_list  %}
           <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
@@ -14,41 +15,12 @@
                   <p class="card-text">Beds: {{booking.house.beds}}</p>
                   <p class="card-text">Capacity: {{booking.house.capacity}}</p>
                   <a href="{{booking.get_cancel_booking_url}}" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"> Cancel booking</i></a>
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Launch demo modal
-                  </button>
                 </div>
               </div>
           </div>
           {% endfor %}
         </div>
-      </div>
+    </div>
 
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to cancel?</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form id="booking-form" action="" method="POST">
-                {% csrf_token %}
-
-                <h2 class="card-title">Are you sure you want to cancel your booking </h2>
-                <p class="card-text">{{bookings.house.number}} </p>
-                <p class="card-text">{{bookings.get_house_category}}</p> 
-                <p class="card-text">{{bookings.check_in}} {{bookings.check_out}}?</p>
-                <!-- Input Div -->
-                <div class="input-div">
-                    <button class="btn btn-danger" type="submit">Cancel the Booking</button>
-                </div>
-
-            </form>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
         
 {% endblock %}

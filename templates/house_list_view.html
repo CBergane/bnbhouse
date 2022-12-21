@@ -4,21 +4,26 @@
 
 <div class="container px-4 text-center">
   {{object.description}}
-
+  
     <div class="row gx-5 row-cols-1 row-cols-sm-2 row-cols-md-4">
+      
       {% for house_category, house_url in house_list %}
       <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
-             
+              
               <h5 class="card-title">{{house_category}} HOUSE</h5>
               
-              <p class="card-text">{{ object }}</p>
+              <p class="card-text">{{ objects.description }}</p>
+              
               <a href="{{house_url}}" class="btn btn-primary">Book This House</a>
+              
             </div>
           </div>
+          
       </div>
       {% endfor %}
     </div>
+    
   </div>
 {% endblock %}

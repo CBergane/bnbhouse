@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, \
+    get_object_or_404, HttpResponseRedirect
 from django.views.generic import TemplateView, ListView, FormView, \
     View, DeleteView
 from django.views import generic
@@ -42,18 +43,6 @@ class BookingList(ListView):
             booking_list = Bookings.objects.filter(user=self.request.user)
             return booking_list
 
-# Update a booking
-
-
-def update_booking(request, bookings_id):
-    booking = Bookings.objects.get(pk=bookings_id)
-    form = Availabilety(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('BookingList')
-
-    return render(request, 'booking_update.html', {'booking': booking, 'form': form})
-
 
 class HouseDetailView(View):
     def get(self, request, *args, **kwargs):
@@ -82,13 +71,14 @@ class HouseDetailView(View):
         if form.is_valid():
             data = form.cleaned_data
 
-        availabile_house_list = []
+        available_house = []
         for house in house_list:
             if check_availabile(house, data['check_in'], data['check_out']):
-                availabile_house_list.append(house)
+                available_house.append(house)
 
-        if len(availabile_house_list) > 0:
-            house = availabile_house_list[0]
+        if len(available_house) > 0:
+            house = available_house[0]
+
             booking = Bookings.objects.create(
                 user=self.request.user,
                 house=house,
@@ -100,6 +90,7 @@ class HouseDetailView(View):
 
         else:
             return HttpResponse('All of this category is booked')
+
 
 # Cancel booking
 

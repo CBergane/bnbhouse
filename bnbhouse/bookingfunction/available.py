@@ -5,11 +5,11 @@ from bnbhouse.models import House, Bookings
 
 
 def check_availabile(house, check_in, check_out):
-    availabile = []
-    booking_list = Bookings.objects.filter(house=house)
+    availabile_list = []
+    booking_list = Bookings.objects.all()
     for booking in booking_list:
-        if booking.check_in > check_out or booking.check_out < check_in:
-            availabile.append(True)
+        if booking.check_in < check_out or booking.check_out > check_in:
+            availabile_list.append(True)
         else:
-            availabile.append(False)
-    return all(availabile)
+            availabile_list.append(False)
+    return all(availabile_list)
