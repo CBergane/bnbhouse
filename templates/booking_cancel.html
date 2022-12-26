@@ -4,18 +4,17 @@
 <div class="container px-4 position-absolute top-50 start-50 translate-middle">
   <div class="row align-items-center">
     <div class="col">
-        <div class="card px-4 position-absolute top-50 start-50 translate-middle"">
+        <div class="card px-4 position-absolute top-50 start-50 translate-middle">
           <div class="card-body">
             <form id="booking-form" action="" method="POST">
                     {% csrf_token %}
 
-                    <h2 class="card-title">Are you sure you want to cancel your booking </h2>
-                    <p class="card-text">{{bookings.house.number}} </p>
+                    <h3 class="card-title">Are you sure you want to cancel your booking?</h3>
                     <p class="card-text">{{bookings.get_house_category}}</p> 
                     <p class="card-text">{{bookings.check_in}} {{bookings.check_out}}?</p>
-                    <!-- Input Div -->
                     <div class="input-div">
-                        <button class="btn btn-danger" type="submit">Cancel the Booking</button>
+                        <button class="btn btn-danger" type="submit">Cancel The Booking</button>
+                        <span class="btn btn-back btn-secondary">Go Back</span>
                     </div>
             </form>
           </div>
