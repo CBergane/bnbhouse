@@ -48,6 +48,11 @@
                         <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                     </li>
                     {% endif %}
+                    {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Admin</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 <span class="text-white">
                     Something in here maybe?

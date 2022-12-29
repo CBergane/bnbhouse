@@ -11,7 +11,8 @@
 
                     <h3 class="card-title">Are you sure you want to cancel your booking?</h3>
                     <p class="card-text">{{bookings.get_house_category}}</p> 
-                    <p class="card-text">{{bookings.check_in}} {{bookings.check_out}}?</p>
+                    <p class="card-text">From: {{bookings.check_in|date:"d F y"}}</p>
+                    <p class="card-text">To: {{bookings.check_out|date:"d F y"}}  </p>
                     <div class="input-div">
                         <button class="btn btn-danger" type="submit">Cancel The Booking</button>
                         <span class="btn btn-back btn-secondary">Go Back</span>

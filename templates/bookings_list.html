@@ -1,23 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2 class="text-center">Welcome {{user}}, here are your bookings.</h2>
-    <div class="container px-4 position-absolute top-50 start-50 translate-middle">
-        {% for booking in bookings_list  %}
-        <ul class="list-group">
-          <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-              <div class="fw-bold">{{booking.get_house_category}} HOUSE</div>
-              From: {{booking.check_in}}
-              To: {{booking.check_out}}
-            </div>
-            <a href="{{booking.get_cancel_booking_url}}" class="btn btn-danger">
-            <span class="badge rounded-pill"><i class="fa-solid fa-circle-xmark"> Cancel booking</i></span>
-            </a>
-          </li>
-        </ul>
-        {% endfor %}
-    </div>
 
+<figure class="text-center">
+  <blockquote class="blockquote">
+  <p>Welcome {{user}}, here are your bookings.</p>
+  </blockquote>
+</figure>
+      <div class="container justify-content-center w-50 shadow-lg">
+        {% for booking in bookings_list  %}
+        <div class="row border bg-light rounded">
+          <div class="col d-flex align-items-center">
+          {{booking.get_house_category}} HOUSE 
+          </div>
+          <div class="col">From: {{booking.check_in|date:"d F y"}} </br>
+                            To: {{booking.check_out|date:"d F y"}}
+          </div>
+          <div class="col d-flex align-items-center">
+                <a href="{{booking.get_cancel_booking_url}}" role="button" class="btn btn-danger align-middle">
+                  <i class="fa-solid fa-circle-xmark"></i>Cancel booking
+                </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    
         
 {% endblock %}
