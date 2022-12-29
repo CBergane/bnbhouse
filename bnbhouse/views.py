@@ -14,19 +14,20 @@ class IndexView(TemplateView):
 
 
 def HouseListView(request):
-    obj = House.objects.all().values("description").distinct()
     house = House.objects.all()[0]
     house_categories = dict(house.HOUSE_CATAGORIES)
     house_values = house_categories.values()
+    img = House.objects.all()
     house_list = []
     for house_category in house_categories:
         house = house_categories.get(house_category)
         house_url = reverse('bnbhouse:HouseDetailView', kwargs={
-            'category': house_category, })
+            'category': house_category,
+            })
         house_list.append((house, house_url))
     context = {
         'house_list': house_list,
-        'object': obj,
+        'img': img,
     }
     return render(request, 'house_list_view.html', context)
 

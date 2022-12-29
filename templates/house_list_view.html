@@ -2,19 +2,19 @@
 
 {% block content %}
 
-<div class="container px-4 text-center">
-  {{object.description}}
-  
-    <div class="row gx-5 row-cols-1 row-cols-sm-2 row-cols-md-4">
-      
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2">
       {% for house_category, house_url in house_list %}
-      <div class="col-sm-6">
-        <div class="card">
+      <div class="col">
+        <div class="card h-100 text-center shadow rounded">
             <div class="card-body">
               
-              <h5 class="card-title">{{house_category}} HOUSE</h5>
+              <div class="image-container">
+                <img src="{{ img.house_image.url }}" width="100%">
+              </div>
               
-              <p class="card-text">{{ objects.description }}</p>
+              
+              <h5 class="card-title">{{house_category}} HOUSE</h5>
               
               <a href="{{house_url}}" class="btn btn-primary">Book This House</a>
               

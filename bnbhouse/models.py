@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import path, reverse_lazy
 from django.conf import settings
 from django.utils import timezone
+from cloudinary.models import CloudinaryField
 
 
 class House(models.Model):
@@ -16,7 +17,7 @@ class House(models.Model):
     beds = models.IntegerField()
     capacity = models.IntegerField()
     description = models.TextField()
-    slug = models.SlugField()
+    house_image = CloudinaryField('image', default='placeholder')
 
     def __str__(self):
         return f'{self.number}. {self.category}'\

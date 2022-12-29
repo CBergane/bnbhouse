@@ -1,41 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container-md.">
-        <div class="row aling-items-center">
-            <div class="col-md-4">
+    <div class="container">
+        <div class="row justify-content-evenly">
+            <div class="col-sm-6 col-md-4 align-self-center">
                 <h2>{{ house_category }}</h2>
-
-                <p>{{ object.description }} </p>
+                <img src="{{ object.house_image.url }}" width="100%" alt="">
                 
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4 col-md-4">
+                <p>{{ object.description }} </p>
+            </div>
+            <div class="col-sm-6 col-md-4">
                 
                 <form id="booking-form" action="" method="POST">
                     {% csrf_token %}
 
-                    <!-- Input Div -->
                     <div class="form-group">
                         <label for="id_check_in">Check In : </label>
                         <input class="form-control" type="datetime-local" id="id_check_in" name="check_in" required>
                     </div>
     
-                    <!-- Input Div -->
                     <div class="form-group">
                         <label for="id_check_out">Check Out : </label>
                         <input class="form-control" type="datetime-local" id="id_check_out" name="check_out" required>
                     </div>
     
-                    <!-- Input Div -->
                     <div class="input-div">
                         <button class="btn btn-primary" type="submit">Book the Room</button>
-                    </div>
-    
+                        <span class="btn btn-back btn-secondary">Go Back</span>
+                    </div>    
                 </form>
+                
             </div>
         </div>
-
-
-    </div>
-
+    </div>  
 {% endblock %}
